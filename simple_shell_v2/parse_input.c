@@ -11,15 +11,16 @@ void parse_input(char *input, char *command, char *args[])
 	char *token = strtok(input, " ");
 	int index;
 
+	(void)command;
+
 	/*Check if the string is NULL*/
 	if (token == NULL)
 	{
 		command = NULL;
 		return;
 	}
-	/*Copies the string in 'command' into 'token'*/
-	strcpy(command, token);
-
+	/*Copies the string in 'token' into 'command'*/
+	/*strcpy(command, token);*/
 	index = 0;
 
 	while (token != NULL)
@@ -39,5 +40,5 @@ void parse_input(char *input, char *command, char *args[])
 		index++;
 	}
 	args[index] = NULL;
-	execute_cmd(command, args);
+	/*execute_cmd(command, args);*/
 }

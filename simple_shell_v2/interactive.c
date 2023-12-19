@@ -27,7 +27,6 @@ void interactive(void)
 		}
 
 		input_length = strlen(input);
-
 		/*Check if last char isn't NULL*/
 		if (input_length > 0 && input[input_length - 1] == '\n')
 		{
@@ -48,7 +47,7 @@ void interactive(void)
 		potential arguments*/
 		else
 		{
-			command = strtok(input, " ");
+			command = strdup(strtok(input, " "));
 			/*Checks if strtok successfully found the first token*/
 			if (command != NULL)
 			{
