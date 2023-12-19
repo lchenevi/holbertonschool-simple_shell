@@ -38,6 +38,6 @@ void parse_input(char *input, char *command, char *args[])
 
 		index++;
 	}
-
 	args[index] = NULL;
+	execute_cmd(command, args);
 }
