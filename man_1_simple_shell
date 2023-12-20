@@ -1,0 +1,68 @@
+.TH man_1_simple_shell 1
+
+
+.SH NAME
+
+.B simple_shell-
+computer program that exposes an operating system's services to a human user or other programs
+
+
+.SH SYNOPSIS
+
+ ./hsh (name of the executable file)
+
+
+.SH DESCRIPTION
+
+.B simple_shell,
+is a custom implementation of a simple UNIX shell.
+
+ Simply put, the shell is a program that takes commands from the keyboard and gives them to the operating system to perform.
+
+This is simply my own (incomplete but working) version of simple_shell
+
+
+.SH COMPILING
+
+-The GNU Compiler Collectiojn, gcc, is recommended for compiling simple_shell with extra flags as shown.
+.P
+.RS
+.B $ gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c -o hsh
+.P
+
+-In interactive mode, the simple_shell works by taking user input on the terminal after pressing the enter key. Note that the prompt ('$') will appear and you will then be in interactive mode and able to enter commands followed by "enter."
+
+.P
+.RS
+.B $ ./hsh
+.P
+
+-In non-interactive mode, users can specify shell scripts to be executed by simple_shell usually through the use of pipes '|'.
+
+.P
+.RS
+.B echo 'pwd' | ./hsh
+
+
+.SH EXECUTABLES
+
+Example of executables:
+.IP
+.br
+.\&
+.RS
+\&$ echo "Example of executables"
+.br
+\&"Example of executables"
+.br
+\&$
+
+
+.SH SEE ALSO
+sh
+
+
+.SH AUTHOR
+
+.TP
+.I Leo Cheneviere
