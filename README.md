@@ -113,5 +113,5 @@ The function returns an exit status
     valgrind ./hsh
 
 ## Author of this project
-Léo Cheneviere Jestin--> https://github.com/lchenevi
+Léo Cheneviere Jestin--> https://github.com/lchenevi.
 
