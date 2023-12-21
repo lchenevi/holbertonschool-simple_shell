@@ -7,17 +7,17 @@ void interactive(void)
 	char *args[MAX_ARGS];
 	size_t input_length;
 
-	/*Checks if user is in interactive mode*/
+	/*Checks if user is in interactive mode
 	if (!isatty(STDIN_FILENO))
 	{
 		fprintf(stderr, "Error: Not in interactive mode.\n");
 		exit(EXIT_FAILURE);
-	}
+	}*/
 
 	while (1)
 	{
-		/*Prompt*/
-		printf("$ ");
+		if (isatty(STDIN_FILENO))
+			printf("$ ");
 
 		/*Checks if input in correct*/
 		if (fgets(input, MAX_INPUT_LENGTH, stdin) == NULL)
