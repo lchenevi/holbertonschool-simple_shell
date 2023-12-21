@@ -1,5 +1,11 @@
 #include "shell.h"
 
+/**
+ * no_interact - non interactive mode
+ * @argc: blabla
+ * @argv: blabla
+ */
+
 void no_interact(int argc, char *argv[])
 {
 	char *command;
