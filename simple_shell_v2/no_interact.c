@@ -2,8 +2,8 @@
 
 /**
  * no_interact - non interactive mode
- * @argc: blabla
- * @argv: blabla
+ * @argc: argument count
+ * @argv: argument value
  */
 
 void no_interact(int argc, char *argv[])
