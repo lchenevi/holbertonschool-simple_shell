@@ -24,7 +24,7 @@ int execute_cmd(char *command, char *args[])
 
 		if (result == -1)
 		{
-			perror("execvp");
+			perror("execve");
 			_exit(EXIT_FAILURE);
 		}
 	}
