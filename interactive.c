@@ -1,8 +1,9 @@
 #include "shell.h"
 
 /**
- * interactive - interactive mode
- *
+ * interactive - Function to run the shell in interactive mode.
+ * This function implements the behavior of the shell in interactive mode.
+ * It displays a prompt to the user, reads user input, and processes the input.
  * Return: void
  */
 
@@ -13,15 +14,10 @@ void interactive(void)
 	char *args[MAX_ARGS];
 	size_t input_length;
 
-	/*Checks if user is in interactive mode
-	if (!isatty(STDIN_FILENO))
-	{
-		fprintf(stderr, "Error: Not in interactive mode.\n");
-		exit(EXIT_FAILURE);
-	}*/
-
 	while (1)
 	{
+		/*Check if the shell is in interactive mode by verifying if stdin*/
+		/*is a terminal*/
 		if (isatty(STDIN_FILENO))
 			printf("$ ");
 
@@ -36,6 +32,8 @@ void interactive(void)
 		/*Check if last char isn't NULL*/
 		if (input_length > 0 && input[input_length - 1] == '\n')
 		{
+			/*If newline character is present, replace it with a null*/
+			/*terminator*/
 			input[input_length - 1] = '\0';
 		}
 
