@@ -1,21 +1,19 @@
 #include "shell.h"
 
 /**
- * def_env - Display environment variables in interactive mode.
- * This function iterates through the environment variables
+ * def_env - Printing the env variable
+ *
  * Return: void
  */
-
 void def_env(void)
 {
-	/*Initialize env_var to point to the first environment variable*/
+	/*Getting data from environ in a variable*/
 	char *env_var = *environ;
 
-	/*Loop through each environment variable until reaching NULL*/
+	/*Iterating through the environ variable*/
 	while (env_var != NULL)
 	{
-		printf("%s\n", env_var);
-		/*Move to the next environment variable*/
+		printf("%s\n", env_var); /*Printing each line*/
 		env_var = *(environ++);
 	}
 }
