@@ -1,31 +1,34 @@
 #include "shell.h"
 
 /**
- * no_interact - Execute commands in non-interactive mode.
+ * no_interact - non interactive mod for simple shell
  * @argc: argument count
  * @argv: argument value
- * Note: The first argument (argv[0]) is typically the program name itself.
+ * @data: data struct
+ * Return: void
  */
-
-void no_interact(int argc, char *argv[])
+void no_interact(int argc, char *argv[], data_t *data)
 {
-	/*To store the command to be executed*/
-	char *command;
-	/*Array to store arguments for the command*/
+	char command[MAX_INPUT_LENGTH];
 	char *args[MAX_ARGS];
-
-	/*Check if the number of command-line arguments is less than 2*/
-	if (argc < 2)
+	int i;
+	/*Suppressing unused variables warnings*/
+	(void)argc;
+	(void)argv;
+	/*Reading the command from the standard input*/
+	if (fgets(command, MAX_INPUT_LENGTH, stdin) == NULL)
 	{
-		/*If insufficient arguments are provided, print then exit*/
-		fprintf(stderr, "Usage: %s command [args...]\n", argv[0]);
-		exit(EXIT_FAILURE); /*Exit the program with a failure status*/
+		fprintf(stderr, "Error reading command from stdin\n");
+		exit(EXIT_FAILURE); /*If reading failed, ERROR*/
 	}
+	/*Remove the newline character from the end of the command.*/
+	command[strcspn(command, "\n")] = '\0';
 
-	/*Extract the command from the command-line arguments*/
-	command = argv[1];
-	/*Parse the input command and its arguments*/
-	parse_input(argv[1], command, args);
-	/*Execute the parsed command with its arguments*/
-	execute_cmd(command, args);
+	args[0] = NULL; /*Setting the args[0] array to NULL*/
+	data->command_count++; /*Counting commands written for the shell*/
+	parse_input(command, command, args); /*Parse the input in tokens*/
+	execute_cmd(command, args, data); /*Execute the parsed command*/
+
+	for (i = 0; args[i] != NULL; i++)
+		free(args[i]); /*Freeing memory of any data stored in the array*/
 }

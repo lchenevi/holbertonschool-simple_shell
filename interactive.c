@@ -1,66 +1,63 @@
 #include "shell.h"
 
 /**
- * interactive - Function to run the shell in interactive mode.
- * This function implements the behavior of the shell in interactive mode.
- * It displays a prompt to the user, reads user input, and processes the input.
+ * interactive - interactive mod for simple shell
+ * @data: data struct
  * Return: void
  */
-
-void interactive(void)
+void interactive(data_t *data)
 {
-	char input[MAX_INPUT_LENGTH];
-	char *command;
-	char *args[MAX_ARGS];
-	size_t input_length;
+	char *input = NULL; /*Input line from the user*/
+	size_t taille_input = 0; /*Size of the input buffer.*/
+	ssize_t bytes_read;
+	char *command; /*Parsed command.*/
+	char *args[MAX_ARGS]; /*Array to store parsed arguments.*/
+	int i;
 
-	while (1)
+	while (1) /*Continuous loop for interactive mode*/
 	{
-		/*Check if the shell is in interactive mode by verifying if stdin*/
-		/*is a terminal*/
-		if (isatty(STDIN_FILENO))
-			printf("$ ");
+		printf("$ "); /*Display shell prompt.*/
+		bytes_read = getline(&input, &taille_input, stdin); /*Reads input*/
 
-		/*Checks if input in correct*/
-		if (fgets(input, MAX_INPUT_LENGTH, stdin) == NULL)
+		data->command_count++;
+		/* Error or End of file */
+		if (bytes_read == -1)
 		{
 			printf("\n");
-			break;
-		}
-
-		input_length = strlen(input);
-		/*Check if last char isn't NULL*/
-		if (input_length > 0 && input[input_length - 1] == '\n')
-		{
-			/*If newline character is present, replace it with a null*/
-			/*terminator*/
-			input[input_length - 1] = '\0';
-		}
-
-		/*Compares if input is exit*/
+			free(input);  /*Free memory allocated by getline*/
+			exit(data->exit_status);
+		} /*Remove newline character from the end of the input.*/
+		if (bytes_read > 0 && input[bytes_read - 1] == '\n')
+			input[bytes_read - 1] = '\0';
 		if (strcmp(input, "exit") == 0)
-		{
+		{	/*Check if the user entered "exit" to terminate the shell.*/
+			free(input);
+			input = NULL;
 			break;
-		}
-		/*Compares if input is env*/
+		}/*Check if the user entered "env"*/
 		else if (strcmp(input, "env") == 0)
-		{
 			def_env();
-		}
-		/*Tokenizes the input string to separate the command and any
-		potential arguments*/
 		else
-		{
-			command = strdup(strtok(input, " "));
-			/*Checks if strtok successfully found the first token*/
+		{	/*Tokenize the input to extract the command and arguments.*/
+			command = strtok(input, " ");
 			if (command != NULL)
 			{
 				parse_input(input, command, args);
-				/*Analyse the input*/
-
-				execute_cmd(command, args);
-				/*Execution of the command with its arguments*/
+				execute_cmd(command, args, data);
+				for (i = 0; args[i] != NULL; i++)
+				{
+					free(args[i]);
+					args[i] = NULL;
+				}
 			}
 		}
+		if (input != NULL)
+		{
+			free(input);
+			input = NULL;
+		}
+
 	}
+	if (input != NULL)
+		free(input);
 }
