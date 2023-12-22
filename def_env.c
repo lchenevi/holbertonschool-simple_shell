@@ -1,4 +1,9 @@
 #include "shell.h"
+/**
+ * def_env - interactive mode
+ *
+ * Return: void
+ */
 
 void def_env(void)
 {

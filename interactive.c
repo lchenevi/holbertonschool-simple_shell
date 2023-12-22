@@ -1,4 +1,9 @@
 #include "shell.h"
+/**
+ * interactive - interactive mode
+ *
+ * Return: void
+ */
 
 void interactive(void)
 {

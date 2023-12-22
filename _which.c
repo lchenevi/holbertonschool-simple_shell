@@ -4,8 +4,9 @@
  * _which - Search for the location of file in the current PATH.
  * @filename: The file to search for.
  * @all_occurrences: Flag indicating whether to find all occurrences.
- *                   If 0, return the first occurrence found; otherwise, print all occurrences.
- * Return: If all_occurrences is 0, return the first occurrence found; otherwise, return NULL.
+ * If 0, return the first occurrence found; otherwise, print all occurrences.
+ * Return: If all_occurrences is 0, return the first occurrence found;
+ * otherwise, return NULL.
  */
 char *_which(const char *filename, int all_occurrences)
 {
