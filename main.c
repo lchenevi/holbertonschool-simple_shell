@@ -1,19 +1,31 @@
 #include "shell.h"
 
 /**
- * main - Entry point to the shell program.
- * @argc: argument count
- * @argv: argument value
- * Return: 0, Indicates successful execution of the program.
+ * main - main function - check the code
+ *@argc: argument count
+ *@argv: argument value
+ * Return: 0 SUCCESS
  */
-
 int main(int argc, char *argv[])
 {
-	/*Check if additional command-line arguments are provided*/
-	if (argc > 1)
-		no_interact(argc, argv);
+	data_t data; /*Structure to store data related to the shell*/
+
+	data.argv = argv;
+	data.command_count = 0;
+	data.exit_status = 0;
+
+	/*Is this non-interactive mode ?*/
+	if (!isatty(STDIN_FILENO))
+	{
+		/*Execute non-interactive*/
+		no_interact(argc, argv, &data);
+	}
 	else
-		interactive();
-	/*Return 0 to indicate successful execution of the program*/
-	return (0);
+	{
+		/*Else, execute interactive*/
+		interactive(&data);
+	}
+	while (1)
+	/*Return the exit status of the shell terminal*/
+	return (data.exit_status);
 }
