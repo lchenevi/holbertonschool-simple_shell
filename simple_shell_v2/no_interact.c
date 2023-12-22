@@ -1,24 +1,33 @@
 #include "shell.h"
 
 /**
- * no_interact - non interactive mode
+ * no_interact - non interactive mod for simple shell
  * @argc: argument count
  * @argv: argument value
+ * @data: data struct
+ * Return: void
  */
-
 void no_interact(int argc, char *argv[])
 {
-	char *command;
+	char command[MAX_INPUT_LENGTH];
 	char *args[MAX_ARGS];
+	int i;
 
-	if (argc < 2)
+	(void)argc;
+	(void)argv;
+	/*No command = ERROR*/
+	if (fgets(command, MAX_INPUT_LENGTH, stdin) == NULL)
 	{
-		fprintf(stderr, "Usage: %s command [args...]\n", argv[0]);
+		fprintf(stderr, "Error reading command from stdin\n");
 		exit(EXIT_FAILURE);
 	}
 
-	command = argv[1];
-	parse_input(argv[1], command, args);
+	command[strcspn(command, "\n")] = '\0';
 
-	execute_cmd(command, args);
+	args[0] = NULL; /*Setting the args[0] array to NULL*/
+	parse_input(command, command, args); /*Parse the input in tokens*/
+	execute_cmd(command, args); /*Execute the command*/
+
+	for (i = 0; args[i] != NULL; i++)
+		free(args[i]); /*Freeing memory of any data stored in the array*/
 }
